@@ -1,0 +1,13 @@
+overwrite: true
+schema: ${REACT_APP_API_URL}
+documents: "codegen/**/*.graphql"
+generates:
+  codegen/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withComponent: false
+      withHOC: false
+      withHooks: true

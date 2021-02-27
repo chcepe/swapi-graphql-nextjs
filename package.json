@@ -5,10 +5,13 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "codegen": "graphql-codegen -r dotenv/config --config codegen.yml"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^4.0.0",
     "@types/styled-components": "^5.1.7",
+    "graphql": "^15.5.0",
     "next": "latest",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -16,6 +19,11 @@
     "typewriter-effect": "^2.17.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.1",
+    "@graphql-codegen/import-types-preset": "^1.18.1",
+    "@graphql-codegen/typescript": "^1.21.0",
+    "@graphql-codegen/typescript-operations": "^1.17.14",
+    "@graphql-codegen/typescript-react-apollo": "^2.2.1",
     "@types/node": "^12.12.21",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",

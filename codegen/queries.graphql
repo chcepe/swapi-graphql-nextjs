@@ -1,0 +1,5 @@
+query AllPeople {
+  allPeople {
+    totalCount
+  }
+}
