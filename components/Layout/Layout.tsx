@@ -16,16 +16,9 @@ const Layout: FC<T.Props> = ({ children, title }) => {
           {DOCUMENT_TITLE} - {title}
         </title>
       </Head>
+      <Header />
       <S.Wrapper>
-        <S.BackgroundVideo src="http://www.youtube.com/embed/aJ44ioHhIBI?autoplay=1&controls=0&mute=1" />
-        <S.Main>
-          <Container>
-            <S.Body>
-              <Header />
-              {children}
-            </S.Body>
-          </Container>
-        </S.Main>
+        <Container>{children}</Container>
       </S.Wrapper>
     </>
   );

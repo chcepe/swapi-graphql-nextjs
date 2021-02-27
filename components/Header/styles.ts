@@ -1,21 +1,45 @@
-import { color, padding } from "@theme";
+import { color } from "@theme";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  padding: ${padding.lg} 0;
   width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  height: 100px;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.6) 30%,
+    rgba(0, 0, 0, 1) 100%
+  );
 `;
 
-export const Logo = styled.img.attrs({
-  src: "/images/star-wars-logo.png",
-})`
+export const Logo = styled.div<{ active?: boolean }>(
+  ({ active }) => `
+  background: url("/images/star-wars-logo-${
+    active ? "active" : "light"
+  }.png") no-repeat;
+  background-size: contain;
+  width: 165px;
   height: 70px;
-`;
+  cursor: pointer;
+  transform: scale(1);
+  transition: all 0.2s ease-in;
+
+  &:hover {
+    background: url("/images/star-wars-logo-hover.png") no-repeat;
+    background-size: contain;
+  }
+`
+);
 
 export const Main = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
+  height: 100%;
 `;
 
 export const Navigation = styled.div`
@@ -24,10 +48,11 @@ export const Navigation = styled.div`
   overflow: hidden;
 `;
 
-export const NavItem = styled.div`
+export const NavItem = styled.div<{ active?: boolean }>(
+  ({ active }) => `
   cursor: pointer;
   padding: 15px 30px;
-  color: ${color.white};
+  color: ${active ? color.starwars : color.white};
   text-transform: uppercase;
   text-align: center;
   position: relative;
@@ -37,6 +62,9 @@ export const NavItem = styled.div`
   font-weight: bold;
   transition: color 0.2s ease-in;
 
+  ${
+    !active &&
+    `
   &:hover {
     color: ${color.starwars};
   }
@@ -58,5 +86,7 @@ export const NavItem = styled.div`
   &:hover::before {
     transform-origin: left top;
     transform: scale(1, 1);
+  }`
   }
-`;
+`
+);

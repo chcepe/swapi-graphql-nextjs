@@ -1,0 +1,16 @@
+fragment People on Person {
+  id
+  name
+  birthYear
+  eyeColor
+  gender
+  hairColor
+  height
+  mass
+  skinColor
+}
+
+fragment SimplePeople on Person {
+  id
+  name
+}

@@ -9,6 +9,8 @@ body {
 body {
   font-family: "Open Sans", sans-serif;
   scroll-behavior: smooth;
+  background: #000;
+  color: #fff;
 }
 
 *:focus {

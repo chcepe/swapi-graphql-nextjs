@@ -1301,6 +1301,16 @@ export type VehiclesEdge = {
   cursor: Scalars['String'];
 };
 
+export type PeopleFragment = (
+  { __typename?: 'Person' }
+  & Pick<Person, 'id' | 'name' | 'birthYear' | 'eyeColor' | 'gender' | 'hairColor' | 'height' | 'mass' | 'skinColor'>
+);
+
+export type SimplePeopleFragment = (
+  { __typename?: 'Person' }
+  & Pick<Person, 'id' | 'name'>
+);
+
 export type AllPeopleQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1309,17 +1319,42 @@ export type AllPeopleQuery = (
   & { allPeople?: Maybe<(
     { __typename?: 'PeopleConnection' }
     & Pick<PeopleConnection, 'totalCount'>
+    & { people?: Maybe<Array<Maybe<(
+      { __typename?: 'Person' }
+      & SimplePeopleFragment
+    )>>> }
   )> }
 );
 
-
+export const PeopleFragmentDoc = gql`
+    fragment People on Person {
+  id
+  name
+  birthYear
+  eyeColor
+  gender
+  hairColor
+  height
+  mass
+  skinColor
+}
+    `;
+export const SimplePeopleFragmentDoc = gql`
+    fragment SimplePeople on Person {
+  id
+  name
+}
+    `;
 export const AllPeopleDocument = gql`
     query AllPeople {
   allPeople {
     totalCount
+    people {
+      ...SimplePeople
+    }
   }
 }
-    `;
+    ${SimplePeopleFragmentDoc}`;
 
 /**
  * __useAllPeopleQuery__

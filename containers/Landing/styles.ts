@@ -2,6 +2,7 @@ import { color, padding, margin } from "@theme";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  position: fixed;
   width: 100%;
   height: 100%;
   color: ${color.white};
@@ -30,10 +31,10 @@ export const Highlight = styled.div`
   margin: 0 ${margin.md};
 `;
 
-export const SwapiDevLogo = styled.img.attrs({
-  src: "/images/swapi-dev.svg",
+export const TechLogo = styled.img.attrs({
+  src: "/images/tech.svg",
 })`
-  height: 50px;
+  height: 80px;
 `;
 
 export const Footer = styled.div`
@@ -47,4 +48,27 @@ export const Footer = styled.div`
     font-weight: bold;
     color: ${color.starwars};
   }
+`;
+
+export const Main = styled.div`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
+export const BackgroundVideo = styled.iframe`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: 0;
+  transform: scale(1.5);
 `;
