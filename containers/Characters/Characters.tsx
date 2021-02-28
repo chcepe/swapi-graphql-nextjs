@@ -1,19 +1,23 @@
 import React, { FC, useState } from "react";
 import { useRouter } from "next/router";
 
-import { useAllPeopleQuery } from "codegen/generated/graphql";
+import { useAllPeopleQuery } from "@codegen";
 
 import * as T from "./types";
 import * as S from "./styles";
 import Loading from "@components/Loading";
 import FilterBar from "@components/FilterBar";
+import routes from "@utils/routes";
+import Redirect from "@lib/redirect";
 
 const Characters: FC<T.Props> = ({}) => {
   const [search, setSearch] = useState("");
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const { sort } = query;
 
   const { data, loading, error } = useAllPeopleQuery();
+  if (error) return <Redirect to="/" />;
+
   let characters = (data?.allPeople?.people ?? []).filter((character) =>
     character?.name?.toLowerCase().includes(search.toLowerCase())
   );
@@ -31,7 +35,6 @@ const Characters: FC<T.Props> = ({}) => {
 
   return (
     <S.Wrapper>
-      {error && <p>{JSON.stringify(error)}</p>}
       {loading ? (
         <Loading />
       ) : (
@@ -43,7 +46,12 @@ const Characters: FC<T.Props> = ({}) => {
           />
           <S.List>
             {characters.map((character) => (
-              <S.Item key={character?.id}>
+              <S.Item
+                onClick={() =>
+                  push(routes.CHARACTERS.route + "/" + character?.id)
+                }
+                key={character?.id}
+              >
                 <img
                   className="bg"
                   loading="lazy"

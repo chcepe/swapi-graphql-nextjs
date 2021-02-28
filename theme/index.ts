@@ -19,6 +19,7 @@ const margin = {
 };
 
 const color = {
+  transparent: "rgba(0,0,0,0)",
   white: "#ffffff",
   starwars: "#ffc500",
   black: "#000000",

@@ -14,3 +14,18 @@ fragment SimplePeople on Person {
   id
   name
 }
+
+fragment Film on Film {
+  id
+  title
+  episodeID
+  openingCrawl
+  director
+  producers
+  releaseDate
+}
+
+fragment SimpleFilm on Film {
+  id
+  title
+}

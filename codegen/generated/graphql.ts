@@ -1311,6 +1311,16 @@ export type SimplePeopleFragment = (
   & Pick<Person, 'id' | 'name'>
 );
 
+export type FilmFragment = (
+  { __typename?: 'Film' }
+  & Pick<Film, 'id' | 'title' | 'episodeID' | 'openingCrawl' | 'director' | 'producers' | 'releaseDate'>
+);
+
+export type SimpleFilmFragment = (
+  { __typename?: 'Film' }
+  & Pick<Film, 'id' | 'title'>
+);
+
 export type AllPeopleQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1322,6 +1332,34 @@ export type AllPeopleQuery = (
     & { people?: Maybe<Array<Maybe<(
       { __typename?: 'Person' }
       & SimplePeopleFragment
+    )>>> }
+  )> }
+);
+
+export type SinglePeopleQueryVariables = Exact<{
+  id?: Maybe<Scalars['ID']>;
+}>;
+
+
+export type SinglePeopleQuery = (
+  { __typename?: 'Root' }
+  & { person?: Maybe<(
+    { __typename?: 'Person' }
+    & PeopleFragment
+  )> }
+);
+
+export type AllFilmsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllFilmsQuery = (
+  { __typename?: 'Root' }
+  & { allFilms?: Maybe<(
+    { __typename?: 'FilmsConnection' }
+    & Pick<FilmsConnection, 'totalCount'>
+    & { films?: Maybe<Array<Maybe<(
+      { __typename?: 'Film' }
+      & SimpleFilmFragment
     )>>> }
   )> }
 );
@@ -1343,6 +1381,23 @@ export const SimplePeopleFragmentDoc = gql`
     fragment SimplePeople on Person {
   id
   name
+}
+    `;
+export const FilmFragmentDoc = gql`
+    fragment Film on Film {
+  id
+  title
+  episodeID
+  openingCrawl
+  director
+  producers
+  releaseDate
+}
+    `;
+export const SimpleFilmFragmentDoc = gql`
+    fragment SimpleFilm on Film {
+  id
+  title
 }
     `;
 export const AllPeopleDocument = gql`
@@ -1380,3 +1435,71 @@ export function useAllPeopleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type AllPeopleQueryHookResult = ReturnType<typeof useAllPeopleQuery>;
 export type AllPeopleLazyQueryHookResult = ReturnType<typeof useAllPeopleLazyQuery>;
 export type AllPeopleQueryResult = Apollo.QueryResult<AllPeopleQuery, AllPeopleQueryVariables>;
+export const SinglePeopleDocument = gql`
+    query SinglePeople($id: ID) {
+  person(id: $id) {
+    ...People
+  }
+}
+    ${PeopleFragmentDoc}`;
+
+/**
+ * __useSinglePeopleQuery__
+ *
+ * To run a query within a React component, call `useSinglePeopleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSinglePeopleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSinglePeopleQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSinglePeopleQuery(baseOptions?: Apollo.QueryHookOptions<SinglePeopleQuery, SinglePeopleQueryVariables>) {
+        return Apollo.useQuery<SinglePeopleQuery, SinglePeopleQueryVariables>(SinglePeopleDocument, baseOptions);
+      }
+export function useSinglePeopleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SinglePeopleQuery, SinglePeopleQueryVariables>) {
+          return Apollo.useLazyQuery<SinglePeopleQuery, SinglePeopleQueryVariables>(SinglePeopleDocument, baseOptions);
+        }
+export type SinglePeopleQueryHookResult = ReturnType<typeof useSinglePeopleQuery>;
+export type SinglePeopleLazyQueryHookResult = ReturnType<typeof useSinglePeopleLazyQuery>;
+export type SinglePeopleQueryResult = Apollo.QueryResult<SinglePeopleQuery, SinglePeopleQueryVariables>;
+export const AllFilmsDocument = gql`
+    query AllFilms {
+  allFilms {
+    totalCount
+    films {
+      ...SimpleFilm
+    }
+  }
+}
+    ${SimpleFilmFragmentDoc}`;
+
+/**
+ * __useAllFilmsQuery__
+ *
+ * To run a query within a React component, call `useAllFilmsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllFilmsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllFilmsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllFilmsQuery(baseOptions?: Apollo.QueryHookOptions<AllFilmsQuery, AllFilmsQueryVariables>) {
+        return Apollo.useQuery<AllFilmsQuery, AllFilmsQueryVariables>(AllFilmsDocument, baseOptions);
+      }
+export function useAllFilmsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllFilmsQuery, AllFilmsQueryVariables>) {
+          return Apollo.useLazyQuery<AllFilmsQuery, AllFilmsQueryVariables>(AllFilmsDocument, baseOptions);
+        }
+export type AllFilmsQueryHookResult = ReturnType<typeof useAllFilmsQuery>;
+export type AllFilmsLazyQueryHookResult = ReturnType<typeof useAllFilmsLazyQuery>;
+export type AllFilmsQueryResult = Apollo.QueryResult<AllFilmsQuery, AllFilmsQueryVariables>;

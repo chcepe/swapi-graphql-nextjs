@@ -60,7 +60,7 @@ export const NavItem = styled.div<{ active?: boolean }>(
   display: inline-block;
   letter-spacing: 3px;
   font-weight: bold;
-  transition: color 0.2s ease-in;
+  transition: all 0.2s ease-in;
 
   ${
     !active &&
@@ -80,7 +80,7 @@ export const NavItem = styled.div<{ active?: boolean }>(
     display: block;
     transform-origin: right top;
     transform: scale(0, 1);
-    transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
+    transition: transform 0.2s cubic-bezier(1, 0, 0, 1);
   }
 
   &:hover::before {

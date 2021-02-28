@@ -2,7 +2,7 @@ overwrite: true
 schema: ${REACT_APP_API_URL}
 documents: "codegen/**/*.graphql"
 generates:
-  codegen/generated/graphql.ts:
+  @codegen.ts:
     plugins:
       - "typescript"
       - "typescript-operations"

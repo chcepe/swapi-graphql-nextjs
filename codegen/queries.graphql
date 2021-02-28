@@ -6,3 +6,18 @@ query AllPeople {
     }
   }
 }
+
+query SinglePeople($id: ID) {
+  person(id: $id) {
+    ...People
+  }
+}
+
+query AllFilms {
+  allFilms {
+    totalCount
+    films {
+      ...SimpleFilm
+    }
+  }
+}

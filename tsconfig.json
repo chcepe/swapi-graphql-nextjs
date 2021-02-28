@@ -5,7 +5,9 @@
       "@components/*": ["components/*"],
       "@containers/*": ["containers/*"],
       "@utils/*": ["utils/*"],
-      "@theme": ["theme/index.ts"]
+      "@theme": ["theme/index.ts"],
+      "@codegen": ["codegen/generated/graphql.ts"],
+      "@lib/*": ["lib/*"]
     },
     "allowJs": true,
     "alwaysStrict": true,
