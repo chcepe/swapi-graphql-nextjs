@@ -9,6 +9,8 @@ import Loading from "@components/Loading";
 import FilterBar from "@components/FilterBar";
 import routes from "@utils/routes";
 import Redirect from "@lib/redirect";
+import { sortList } from "@utils/formatters";
+import { List, Sort } from "@utils/types";
 
 const Characters: FC<T.Props> = ({}) => {
   const [search, setSearch] = useState("");
@@ -18,20 +20,13 @@ const Characters: FC<T.Props> = ({}) => {
   const { data, loading, error } = useAllPeopleQuery();
   if (error) return <Redirect to="/" />;
 
-  let characters = (data?.allPeople?.people ?? []).filter((character) =>
-    character?.name?.toLowerCase().includes(search.toLowerCase())
-  );
+  const characters: List[] = (data?.allPeople?.people ?? []).map((people) => ({
+    id: people?.id ?? "",
+    name: people?.name ?? "",
+  }));
+  const list = sortList(characters, sort as Sort, search);
 
-  if (sort === "asc") {
-    characters = characters.sort((a, b) =>
-      (a?.name ?? "").localeCompare(b?.name ?? "")
-    );
-  }
-  if (sort === "des") {
-    characters = characters.sort((a, b) =>
-      (b?.name ?? "").localeCompare(a?.name ?? "")
-    );
-  }
+  const hasNoSearchResult = search.length > 0 && !list.length;
 
   return (
     <S.Wrapper>
@@ -40,30 +35,33 @@ const Characters: FC<T.Props> = ({}) => {
       ) : (
         <>
           <FilterBar
-            placeholder="Search characters"
+            placeholder="Search character"
             value={search}
             onSearch={(value) => setSearch(value)}
           />
+          {hasNoSearchResult && (
+            <small>
+              No result for "<strong>{search}</strong>".
+            </small>
+          )}
           <S.List>
-            {characters.map((character) => (
+            {list.map(({ id, name }) => (
               <S.Item
-                onClick={() =>
-                  push(routes.CHARACTERS.route + "/" + character?.id)
-                }
-                key={character?.id}
+                onClick={() => push(routes.CHARACTERS.route + "/" + id)}
+                key={id}
               >
                 <img
                   className="bg"
                   loading="lazy"
-                  src={`/starwars/characters/${character?.id}.png`}
+                  src={`/starwars/characters/${id}.png`}
                 />
                 <S.Info>
-                  <span>{character?.name}</span>
+                  <span>{name}</span>
                 </S.Info>
                 <img
                   className="avatar"
                   loading="lazy"
-                  src={`/starwars/characters/${character?.id}.png`}
+                  src={`/starwars/characters/${id}.png`}
                 />
               </S.Item>
             ))}

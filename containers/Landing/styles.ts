@@ -1,4 +1,4 @@
-import { color, padding, margin } from "@theme";
+import { color, padding, margin, breakpoint } from "@theme";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -22,6 +22,10 @@ export const Headline = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  @${breakpoint.mobile} {
+    flex-direction: column;
+  }
 `;
 
 export const Highlight = styled.div`
@@ -29,6 +33,10 @@ export const Highlight = styled.div`
   color: ${color.black};
   padding: ${padding.sm};
   margin: 0 ${margin.md};
+
+  @${breakpoint.mobile} {
+    margin: ${margin.md};
+  }
 `;
 
 export const TechLogo = styled.img.attrs({

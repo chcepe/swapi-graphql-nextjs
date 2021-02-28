@@ -1,4 +1,4 @@
-import { color, margin, padding } from "@theme";
+import { breakpoint, color, margin, padding } from "@theme";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -6,11 +6,16 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: ${margin.xl};
+  padding-bottom: ${padding.lg};
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 `;
 
 export const InputContainer = styled.div`
+  width: 400px;
   position: relative;
-  min-width: 400px;
+  @${breakpoint.mobile} {
+    width: 100%;
+  }
 `;
 
 export const IcSearch = styled.div`
@@ -19,36 +24,47 @@ export const IcSearch = styled.div`
   width: 20px;
   height: 20px;
   position: absolute;
-  right: 30px;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
   opacity: 0.2;
+
+  @${breakpoint.mobile} {
+    width: 15px;
+    height: 15px;
+    right: 0;
+  }
 `;
 
 export const Input = styled.input`
   background: none;
-  padding: ${padding.lg};
-  padding-right: 60px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50px;
+  padding: ${padding.lg} 0;
+  padding-right: 40px;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   color: ${color.white};
-  transition: all 0.2s ease-in;
+  transition: all 0.1s ease-in;
   width: 100%;
 
   &:focus {
-    border: 2px solid ${color.starwars};
+    border-bottom: 2px solid ${color.starwars};
   }
 
   &:focus ~ ${IcSearch} {
     opacity: 1;
   }
+
+  @${breakpoint.mobile} {
+    padding: ${padding.md} 0;
+    padding-right: 30px;
+  }
 `;
 
 export const SortingContainer = styled.div`
-  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
+  margin-right: ${margin.xl};
 `;
 
 export const SortBtn = styled.span<{ active?: boolean; sort: "asc" | "des" }>(

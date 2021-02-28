@@ -15,18 +15,18 @@ export const routes = {
     title: "Planets",
     route: "/planets",
   },
-  VEHICLES: {
-    title: "Vehicles",
-    route: "/vehicles",
-  },
-  SPECIES: {
-    title: "Species",
-    route: "/species",
-  },
-  STARSHIPS: {
-    title: "Starhips",
-    route: "/starships",
-  },
+  // VEHICLES: {
+  //   title: "Vehicles",
+  //   route: "/vehicles",
+  // },
+  // SPECIES: {
+  //   title: "Species",
+  //   route: "/species",
+  // },
+  // STARSHIPS: {
+  //   title: "Starhips",
+  //   route: "/starships",
+  // },
 };
 
 type LINK = {

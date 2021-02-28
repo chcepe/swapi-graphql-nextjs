@@ -5,7 +5,7 @@ const breakpoint = {
 
 const padding = {
   sm: "5px",
-  md: "8px",
+  md: "12px",
   lg: "20px",
   xl: "35px",
 };

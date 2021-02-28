@@ -20,7 +20,7 @@ const CharacterPage = () => {
   if (error) return <Redirect to="/" />;
 
   return (
-    <Layout title={routes.CHARACTERS.title}>
+    <Layout title={data?.person?.name ?? ""}>
       {loading && <Loading />}
       {data && <SingleCharacter person={data?.person} />}
     </Layout>

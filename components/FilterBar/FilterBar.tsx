@@ -11,7 +11,7 @@ const FilterBar: FC<T.Props> = ({ value, placeholder, onSearch }) => {
   return (
     <S.Wrapper>
       <S.SortingContainer>
-        <small>Sort name:</small>
+        <small>Sort</small>
         <S.SortBtn
           active={sort === "asc" || sort === "des"}
           onClick={() =>

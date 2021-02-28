@@ -1,4 +1,4 @@
-import { color, margin, padding } from "@theme";
+import { color, margin, padding, breakpoint } from "@theme";
 import styled from "styled-components";
 
 export const Wrapper = styled.div``;
@@ -7,6 +7,9 @@ export const List = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: ${margin.xl};
+  @${breakpoint.mobile} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const Item = styled.div`
@@ -18,6 +21,8 @@ export const Item = styled.div`
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  opacity: 0.8;
+  filter: grayscale(100%);
 
   span {
     font-size: 20px;
@@ -37,19 +42,20 @@ export const Item = styled.div`
     left: 20px;
   }
   .bg {
-    opacity: 0.5;
-    filter: grayscale(100%);
-    filter: blur(1px);
-    transform: scale(2);
+    opacity: 0.2;
+    filter: blur(0.5px);
+    transform: scale(5) rotate(45deg);
   }
 
   &:hover {
+    opacity: 1;
     background: ${color.starwars};
     border: 1px solid ${color.starwars};
-    color: ${color.starwars};
+    filter: none;
 
     span {
       margin-top: 50px;
+      color: ${color.starwars};
     }
   }
 
@@ -58,6 +64,7 @@ export const Item = styled.div`
   }
 
   &:hover .bg {
+    transform: rotate(0deg);
     transform: scale(3);
   }
 `;
