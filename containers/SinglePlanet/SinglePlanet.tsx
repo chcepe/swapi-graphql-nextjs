@@ -1,13 +1,16 @@
 import React, { FC } from "react";
+import { useRouter } from "next/router";
 
 import { SinglePlanetQuery } from "@codegen";
 import TableInfo from "@components/TableInfo";
 import Planet from "@components/Planet";
 import Tag from "@components/Tag";
+import routes from "@utils/routes";
 
 import * as S from "./styles";
 
 const SinglePlanet: FC<SinglePlanetQuery> = ({ planet }) => {
+  const { push } = useRouter();
   const info = [
     {
       label: "Diameter",
@@ -34,6 +37,8 @@ const SinglePlanet: FC<SinglePlanetQuery> = ({ planet }) => {
       value: planet?.surfaceWater,
     },
   ];
+
+  const residents = planet?.residentConnection?.residents ?? [];
 
   return (
     <S.Wrapper>
@@ -67,6 +72,24 @@ const SinglePlanet: FC<SinglePlanetQuery> = ({ planet }) => {
           <Tag key={`terrain-${i}`}>{terrain}</Tag>
         ))}
       </S.Tags>
+      {residents.length > 0 && (
+        <>
+          <S.Labels>Residents</S.Labels>
+          <S.Tags>
+            {residents.map((resident, i) => (
+              <Tag
+                onClick={() =>
+                  push(routes.CHARACTERS.route + "/" + resident?.id)
+                }
+                type="ghost"
+                key={`climate-${i}`}
+              >
+                {resident?.name}
+              </Tag>
+            ))}
+          </S.Tags>
+        </>
+      )}
     </S.Wrapper>
   );
 };

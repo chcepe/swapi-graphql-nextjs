@@ -44,6 +44,12 @@ fragment Planet on Planet {
   climates
   terrains
   surfaceWater
+  residentConnection {
+    totalCount
+    residents {
+      ...SimplePeople
+    }
+  }
 }
 
 fragment SimplePlanet on Planet {

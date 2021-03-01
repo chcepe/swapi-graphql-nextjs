@@ -1328,6 +1328,14 @@ export type SimpleFilmFragment = (
 export type PlanetFragment = (
   { __typename?: 'Planet' }
   & Pick<Planet, 'id' | 'name' | 'diameter' | 'rotationPeriod' | 'orbitalPeriod' | 'gravity' | 'population' | 'climates' | 'terrains' | 'surfaceWater'>
+  & { residentConnection?: Maybe<(
+    { __typename?: 'PlanetResidentsConnection' }
+    & Pick<PlanetResidentsConnection, 'totalCount'>
+    & { residents?: Maybe<Array<Maybe<(
+      { __typename?: 'Person' }
+      & SimplePeopleFragment
+    )>>> }
+  )> }
 );
 
 export type SimplePlanetFragment = (
@@ -1428,12 +1436,6 @@ export const PeopleFragmentDoc = gql`
   }
 }
     ${SimplePlanetFragmentDoc}`;
-export const SimplePeopleFragmentDoc = gql`
-    fragment SimplePeople on Person {
-  id
-  name
-}
-    `;
 export const FilmFragmentDoc = gql`
     fragment Film on Film {
   id
@@ -1451,6 +1453,12 @@ export const SimpleFilmFragmentDoc = gql`
   title
 }
     `;
+export const SimplePeopleFragmentDoc = gql`
+    fragment SimplePeople on Person {
+  id
+  name
+}
+    `;
 export const PlanetFragmentDoc = gql`
     fragment Planet on Planet {
   id
@@ -1463,8 +1471,14 @@ export const PlanetFragmentDoc = gql`
   climates
   terrains
   surfaceWater
+  residentConnection {
+    totalCount
+    residents {
+      ...SimplePeople
+    }
+  }
 }
-    `;
+    ${SimplePeopleFragmentDoc}`;
 export const AllPeopleDocument = gql`
     query AllPeople {
   allPeople {
