@@ -2,6 +2,14 @@
 
 A portal created based from [swapi-graphql](https://github.com/graphql/swapi-graphql).
 
+
+## Setup
+
+1. clone the repository
+2. install dependencies `npm install` or `yarn install`
+3. create environment variable `REACT_APP_API_URL`
+4. start the app `npm run dev` or  `yarn dev`
+
 ![Screenshot 1](https://i.imgur.com/708xr7U.png)
 ![Screenshot 2](https://i.imgur.com/Tyk3d04.png)
 
