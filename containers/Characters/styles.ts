@@ -73,7 +73,7 @@ export const Info = styled.div`
   background: linear-gradient(
     63deg,
     rgba(0, 0, 0, 0.5) 30%,
-    rgba(0, 0, 0, 1) 100%
+    rgba(0, 0, 0, 0.8) 100%
   );
   position: absolute;
   top: 0;

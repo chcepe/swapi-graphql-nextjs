@@ -1304,6 +1304,10 @@ export type VehiclesEdge = {
 export type PeopleFragment = (
   { __typename?: 'Person' }
   & Pick<Person, 'id' | 'name' | 'birthYear' | 'eyeColor' | 'gender' | 'hairColor' | 'height' | 'mass' | 'skinColor'>
+  & { homeworld?: Maybe<(
+    { __typename?: 'Planet' }
+    & SimplePlanetFragment
+  )> }
 );
 
 export type SimplePeopleFragment = (
@@ -1319,6 +1323,16 @@ export type FilmFragment = (
 export type SimpleFilmFragment = (
   { __typename?: 'Film' }
   & Pick<Film, 'id' | 'title'>
+);
+
+export type PlanetFragment = (
+  { __typename?: 'Planet' }
+  & Pick<Planet, 'id' | 'name' | 'diameter' | 'rotationPeriod' | 'orbitalPeriod' | 'gravity' | 'population' | 'climates' | 'terrains' | 'surfaceWater'>
+);
+
+export type SimplePlanetFragment = (
+  { __typename?: 'Planet' }
+  & Pick<Planet, 'id' | 'name'>
 );
 
 export type AllPeopleQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1364,6 +1378,40 @@ export type AllFilmsQuery = (
   )> }
 );
 
+export type AllPlanetsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllPlanetsQuery = (
+  { __typename?: 'Root' }
+  & { allPlanets?: Maybe<(
+    { __typename?: 'PlanetsConnection' }
+    & Pick<PlanetsConnection, 'totalCount'>
+    & { planets?: Maybe<Array<Maybe<(
+      { __typename?: 'Planet' }
+      & SimplePlanetFragment
+    )>>> }
+  )> }
+);
+
+export type SinglePlanetQueryVariables = Exact<{
+  id?: Maybe<Scalars['ID']>;
+}>;
+
+
+export type SinglePlanetQuery = (
+  { __typename?: 'Root' }
+  & { planet?: Maybe<(
+    { __typename?: 'Planet' }
+    & PlanetFragment
+  )> }
+);
+
+export const SimplePlanetFragmentDoc = gql`
+    fragment SimplePlanet on Planet {
+  id
+  name
+}
+    `;
 export const PeopleFragmentDoc = gql`
     fragment People on Person {
   id
@@ -1375,8 +1423,11 @@ export const PeopleFragmentDoc = gql`
   height
   mass
   skinColor
+  homeworld {
+    ...SimplePlanet
+  }
 }
-    `;
+    ${SimplePlanetFragmentDoc}`;
 export const SimplePeopleFragmentDoc = gql`
     fragment SimplePeople on Person {
   id
@@ -1398,6 +1449,20 @@ export const SimpleFilmFragmentDoc = gql`
     fragment SimpleFilm on Film {
   id
   title
+}
+    `;
+export const PlanetFragmentDoc = gql`
+    fragment Planet on Planet {
+  id
+  name
+  diameter
+  rotationPeriod
+  orbitalPeriod
+  gravity
+  population
+  climates
+  terrains
+  surfaceWater
 }
     `;
 export const AllPeopleDocument = gql`
@@ -1503,3 +1568,71 @@ export function useAllFilmsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<A
 export type AllFilmsQueryHookResult = ReturnType<typeof useAllFilmsQuery>;
 export type AllFilmsLazyQueryHookResult = ReturnType<typeof useAllFilmsLazyQuery>;
 export type AllFilmsQueryResult = Apollo.QueryResult<AllFilmsQuery, AllFilmsQueryVariables>;
+export const AllPlanetsDocument = gql`
+    query AllPlanets {
+  allPlanets {
+    totalCount
+    planets {
+      ...SimplePlanet
+    }
+  }
+}
+    ${SimplePlanetFragmentDoc}`;
+
+/**
+ * __useAllPlanetsQuery__
+ *
+ * To run a query within a React component, call `useAllPlanetsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllPlanetsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllPlanetsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllPlanetsQuery(baseOptions?: Apollo.QueryHookOptions<AllPlanetsQuery, AllPlanetsQueryVariables>) {
+        return Apollo.useQuery<AllPlanetsQuery, AllPlanetsQueryVariables>(AllPlanetsDocument, baseOptions);
+      }
+export function useAllPlanetsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllPlanetsQuery, AllPlanetsQueryVariables>) {
+          return Apollo.useLazyQuery<AllPlanetsQuery, AllPlanetsQueryVariables>(AllPlanetsDocument, baseOptions);
+        }
+export type AllPlanetsQueryHookResult = ReturnType<typeof useAllPlanetsQuery>;
+export type AllPlanetsLazyQueryHookResult = ReturnType<typeof useAllPlanetsLazyQuery>;
+export type AllPlanetsQueryResult = Apollo.QueryResult<AllPlanetsQuery, AllPlanetsQueryVariables>;
+export const SinglePlanetDocument = gql`
+    query SinglePlanet($id: ID) {
+  planet(id: $id) {
+    ...Planet
+  }
+}
+    ${PlanetFragmentDoc}`;
+
+/**
+ * __useSinglePlanetQuery__
+ *
+ * To run a query within a React component, call `useSinglePlanetQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSinglePlanetQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSinglePlanetQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSinglePlanetQuery(baseOptions?: Apollo.QueryHookOptions<SinglePlanetQuery, SinglePlanetQueryVariables>) {
+        return Apollo.useQuery<SinglePlanetQuery, SinglePlanetQueryVariables>(SinglePlanetDocument, baseOptions);
+      }
+export function useSinglePlanetLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SinglePlanetQuery, SinglePlanetQueryVariables>) {
+          return Apollo.useLazyQuery<SinglePlanetQuery, SinglePlanetQueryVariables>(SinglePlanetDocument, baseOptions);
+        }
+export type SinglePlanetQueryHookResult = ReturnType<typeof useSinglePlanetQuery>;
+export type SinglePlanetLazyQueryHookResult = ReturnType<typeof useSinglePlanetLazyQuery>;
+export type SinglePlanetQueryResult = Apollo.QueryResult<SinglePlanetQuery, SinglePlanetQueryVariables>;

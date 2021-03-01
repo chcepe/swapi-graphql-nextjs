@@ -1,14 +1,19 @@
 import React, { FC } from "react";
+import { useRouter } from "next/router";
 
 import { SinglePeopleQuery } from "@codegen";
+import Container from "@components/Container";
+import TableInfo from "@components/TableInfo";
+import Tag from "@components/Tag";
+import routes from "@utils/routes";
 
 import * as T from "./types";
 import * as S from "./styles";
-import Container from "@components/Container";
 
 const SingleCharacter: FC<T.Props & SinglePeopleQuery> = ({ person }) => {
+  const { push } = useRouter();
   const randomBG = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
-  const tags = [
+  const info = [
     { label: "Eye color", value: person?.eyeColor },
     { label: "Gender", value: person?.gender },
     { label: "Height", value: `${person?.height}cm` },
@@ -31,17 +36,25 @@ const SingleCharacter: FC<T.Props & SinglePeopleQuery> = ({ person }) => {
           <S.Content>
             <S.Info>
               <S.Name>{person?.name}</S.Name>
-              <S.TableInfo>
-                {tags.map((tag) => (
+              <TableInfo>
+                {info.map(({ label, value }) => (
                   <tr>
-                    <td>{tag.label}</td>
-                    <td>{tag.value}</td>
+                    <td>{label}</td>
+                    <td>{value}</td>
                   </tr>
                 ))}
-              </S.TableInfo>
+              </TableInfo>
+              <Tag
+                onClick={() =>
+                  push(routes.PLANETS.route + "/" + person?.homeworld?.id)
+                }
+                type="ghost"
+              >
+                {person?.homeworld?.name}
+              </Tag>
             </S.Info>
             <S.PhotoContainer>
-              <img src={`/starwars/characters/${person?.id}.png`} />
+              <img src={`/starwars/characters/${person?.id}-min.png`} />
             </S.PhotoContainer>
           </S.Content>
         </Container>

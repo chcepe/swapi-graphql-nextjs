@@ -8,6 +8,9 @@ fragment People on Person {
   height
   mass
   skinColor
+  homeworld {
+    ...SimplePlanet
+  }
 }
 
 fragment SimplePeople on Person {
@@ -28,4 +31,22 @@ fragment Film on Film {
 fragment SimpleFilm on Film {
   id
   title
+}
+
+fragment Planet on Planet {
+  id
+  name
+  diameter
+  rotationPeriod
+  orbitalPeriod
+  gravity
+  population
+  climates
+  terrains
+  surfaceWater
+}
+
+fragment SimplePlanet on Planet {
+  id
+  name
 }

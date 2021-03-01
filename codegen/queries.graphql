@@ -21,3 +21,18 @@ query AllFilms {
     }
   }
 }
+
+query AllPlanets {
+  allPlanets {
+    totalCount
+    planets {
+      ...SimplePlanet
+    }
+  }
+}
+
+query SinglePlanet($id: ID) {
+  planet(id: $id) {
+    ...Planet
+  }
+}

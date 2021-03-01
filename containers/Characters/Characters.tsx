@@ -53,7 +53,7 @@ const Characters: FC<T.Props> = ({}) => {
                 <img
                   className="bg"
                   loading="lazy"
-                  src={`/starwars/characters/${id}.png`}
+                  src={`/starwars/characters/${id}-min.png`}
                 />
                 <S.Info>
                   <span>{name}</span>
@@ -61,7 +61,7 @@ const Characters: FC<T.Props> = ({}) => {
                 <img
                   className="avatar"
                   loading="lazy"
-                  src={`/starwars/characters/${id}.png`}
+                  src={`/starwars/characters/${id}-min.png`}
                 />
               </S.Item>
             ))}
