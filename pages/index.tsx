@@ -3,7 +3,7 @@ import Landing from "@containers/Landing";
 import routes from "@utils/routes";
 
 const IndexPage = () => (
-  <Layout bg="video" title={routes.LANDING.title}>
+  <Layout title={routes.LANDING.title}>
     <Landing />
   </Layout>
 );

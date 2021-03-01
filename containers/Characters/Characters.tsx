@@ -3,18 +3,18 @@ import { useRouter } from "next/router";
 
 import { useAllPeopleQuery } from "@codegen";
 
-import * as T from "./types";
-import * as S from "./styles";
 import Loading from "@components/Loading";
 import FilterBar from "@components/FilterBar";
-import routes from "@utils/routes";
 import Redirect from "@lib/redirect";
 import { sortList } from "@utils/formatters";
 import { List, Sort } from "@utils/types";
+import CharacterItem from "@components/CharacterItem";
 
-const Characters: FC<T.Props> = ({}) => {
+import * as S from "./styles";
+
+const Characters: FC = () => {
   const [search, setSearch] = useState("");
-  const { query, push } = useRouter();
+  const { query } = useRouter();
   const { sort } = query;
 
   const { data, loading, error } = useAllPeopleQuery();
@@ -46,24 +46,7 @@ const Characters: FC<T.Props> = ({}) => {
           )}
           <S.List>
             {list.map(({ id, name }) => (
-              <S.Item
-                onClick={() => push(routes.CHARACTERS.route + "/" + id)}
-                key={id}
-              >
-                <img
-                  className="bg"
-                  loading="lazy"
-                  src={`/starwars/characters/${id}-min.png`}
-                />
-                <S.Info>
-                  <span>{name}</span>
-                </S.Info>
-                <img
-                  className="avatar"
-                  loading="lazy"
-                  src={`/starwars/characters/${id}-min.png`}
-                />
-              </S.Item>
+              <CharacterItem key={id} id={id} name={name} />
             ))}
           </S.List>
         </>

@@ -9,11 +9,10 @@ import { List, Sort } from "@utils/types";
 import { sortList } from "@utils/formatters";
 import Planet from "@components/Planet";
 
-import * as T from "./types";
 import * as S from "./styles";
 import routes from "@utils/routes";
 
-const Planets: FC<T.Props> = ({}) => {
+const Planets: FC = () => {
   const [search, setSearch] = useState("");
   const { query, push } = useRouter();
   const { sort } = query;
@@ -49,7 +48,7 @@ const Planets: FC<T.Props> = ({}) => {
           )}
           <S.List>
             {list.map(({ id, name }) => (
-              <S.Item>
+              <S.Item key={id}>
                 <Planet
                   withHover
                   name={name}

@@ -7,10 +7,9 @@ import TableInfo from "@components/TableInfo";
 import Tag from "@components/Tag";
 import routes from "@utils/routes";
 
-import * as T from "./types";
 import * as S from "./styles";
 
-const SingleCharacter: FC<T.Props & SinglePeopleQuery> = ({ person }) => {
+const SingleCharacter: FC<SinglePeopleQuery> = ({ person }) => {
   const { push } = useRouter();
   const randomBG = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
   const info = [
@@ -37,12 +36,14 @@ const SingleCharacter: FC<T.Props & SinglePeopleQuery> = ({ person }) => {
             <S.Info>
               <S.Name>{person?.name}</S.Name>
               <TableInfo>
-                {info.map(({ label, value }) => (
-                  <tr>
-                    <td>{label}</td>
-                    <td>{value}</td>
-                  </tr>
-                ))}
+                <tbody>
+                  {info.map(({ label, value }) => (
+                    <tr key={label}>
+                      <td>{label}</td>
+                      <td>{value}</td>
+                    </tr>
+                  ))}
+                </tbody>
               </TableInfo>
               <Tag
                 onClick={() =>

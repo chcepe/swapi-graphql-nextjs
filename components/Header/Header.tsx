@@ -6,7 +6,7 @@ import Container from "@components/Container";
 
 import * as S from "./styles";
 
-const Header: FC = ({}) => {
+const Header: FC = () => {
   const { pathname, push } = useRouter();
   const [showMenuModal, setShowMenuModal] = useState(false);
 

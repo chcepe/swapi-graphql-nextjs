@@ -6,13 +6,13 @@ import FilterBar from "@components/FilterBar";
 import Loading from "@components/Loading";
 import Redirect from "@lib/redirect";
 import { List, Sort } from "@utils/types";
+import FilmItem from "@components/FilmItem";
 import { sortList } from "@utils/formatters";
 
-import * as T from "./types";
 import * as S from "./styles";
 import { imdbLinks } from "./helpers";
 
-const Films: FC<T.Props> = ({}) => {
+const Films: FC = () => {
   const [search, setSearch] = useState("");
   const { query } = useRouter();
   const { sort } = query;
@@ -47,16 +47,8 @@ const Films: FC<T.Props> = ({}) => {
           )}
           <S.List>
             {list.map(({ id, name }) => {
-              const src = `/starwars/films/${id}.jpg`;
               const imdbLink = imdbLinks[id as keyof typeof imdbLinks];
-              return (
-                <a target="_blank" href={imdbLink}>
-                  <S.Item src={src}>
-                    <S.Thumbnail src={src} />
-                    <S.Title>{name}</S.Title>
-                  </S.Item>
-                </a>
-              );
+              return <FilmItem key={id} id={id} name={name} link={imdbLink} />;
             })}
           </S.List>
         </>

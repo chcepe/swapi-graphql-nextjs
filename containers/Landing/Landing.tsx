@@ -5,7 +5,7 @@ import { links } from "@utils/routes";
 
 import * as S from "./styles";
 
-const Landing: FC = ({}) => {
+const Landing: FC = () => {
   return (
     <S.Wrapper>
       <S.BackgroundVideo src="https://www.youtube.com/embed/aJ44ioHhIBI?autoplay=1&controls=0&mute=1" />
